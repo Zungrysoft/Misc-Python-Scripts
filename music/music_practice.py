@@ -8,6 +8,7 @@ from music_notation_library import *
 import music_practice_questions
 from datetime import datetime
 import random
+import sys
 
 #Goes through all of the questions and picks one proportional to its weight
 def pick_question(question_set):
@@ -29,10 +30,29 @@ def pick_question(question_set):
 	return question_set[0][0]
 
 def main():
+	#Ensure command line input is valid
+	if len(sys.argv) < 2 or len(sys.argv) > 3:
+		print("Format: " + sys.argv[0] + " [question count] [question set file*]")
+		print("*: Optional parameter")
+		return
+		
+	#Determine filename value
+	filename = "example_question_set.txt"
+	if len(sys.argv) > 2:
+		filename = sys.argv[2]
+	
+	#Parse question count
+	try:
+		question_count = int(sys.argv[1])
+	except:
+		print("Error: [question count] must be an integer number")
+		return
+	
+	
+	#Stores the start time of the program for tracking the player's time
 	start_time = datetime.now()
+	#The number of correct questions the player has gotten
 	score = 0
-	question_count = 3
-	filename = 'example_question_set.txt'
 	
 	#Read in the question set from the chosen file
 	question_set = []
