@@ -22,7 +22,7 @@ def pick_question(question_set):
 	#Determine which item to choose based on the chosen weight
 	for item in question_set:
 		choice -= int(item[1])
-		if choice <= 0:
+		if choice < 0:
 			return item[0]
 	
 	#Default selection

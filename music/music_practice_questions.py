@@ -57,28 +57,47 @@ def intervals_1_grandmaster():
 
 
 #Asks the player to tell the notes in a major chord based on root note
+#chord is a list of distances from the root note
 #notes is the possible root notes to ask about
-def base_major_chords(notes):
+def base_chords(chordname,chord,notes):
 	#Decide the note to ask about
 	noteindex = int(random.random() * len(notes))
 	note = notes[noteindex]
 	
 	#Format the question
-	question = "Please type out a(n) " + notename(note,True) + " major chord. (Put one space between each note)"
-	answer_sharp = notename(note,True,False) + " " + notename(note+4,True,False) + " " + notename(note+7,True,False)
-	answer_flat = notename(note,True,True) + " " + notename(note+4,True,True) + " " + notename(note+7,True,True)
+	question = "Please type out a(n) " + notename(note,True) + " " + chordname + " chord. (Put one space between each note)"
+	
+	#Build the answers based on the inputted chord
+	answer_sharp = ""
+	answer_flat = ""
+	for dist in chord:
+		answer_sharp += notename(note+dist,True,False) + " "
+		answer_flat += notename(note+dist,True,True) + " "
+	
+	#Remove the final space from each answer
+	answer_sharp = answer_sharp[:-1]
+	answer_flat = answer_flat[:-1]
+	
 	answers = [answer_sharp,answer_flat]
 	return ask_question(question,answers)
 
 def major_chords_white():
-	return base_major_chords([0,2,4,5,7,9,11])
+	return base_chords("major",[0,4,7],[0,2,4,5,7,9,11])
 
 def major_chords_all():
-	return base_major_chords([0,1,2,3,4,5,6,7,8,9,10,11])
+	return base_chords("major",[0,4,7],[0,1,2,3,4,5,6,7,8,9,10,11])
 
+def minor_chords_white():
+	return base_chords("minor",[0,3,7],[0,2,4,5,7,9,11])
 
+def minor_chords_all():
+	return base_chords("minor",[0,3,7],[0,1,2,3,4,5,6,7,8,9,10,11])
 
+def diminished_chords_white():
+	return base_chords("diminished",[0,3,6],[0,2,4,5,7,9,11])
 
+def diminished_chords_all():
+	return base_chords("diminished",[0,3,6],[0,1,2,3,4,5,6,7,8,9,10,11])
 
 
 
