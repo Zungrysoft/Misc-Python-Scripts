@@ -21,7 +21,7 @@ def note_to_frequency(n):
 	
 #Pass in a note to get a string representation of that note
 #Set flat to true to get accidentals written as flats instead of sharps
-def notename(n,flat=False,no_octave=False):
+def notename(n,no_octave=False,flat=False):
 	note_bases_sharp = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 	note_bases_flat = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B']
 	
@@ -37,8 +37,8 @@ def notename(n,flat=False,no_octave=False):
 	return note_bases_sharp[note_base] + note_octave
 	
 #Prints the string form of a note
-def print_note(n,flat=False):
-	print(notename(n,flat))
+def print_note(n,no_octave=False,flat=False):
+	print(notename(n,no_octave,flat))
 
 #Pass in an interval (in semitones) and get the name of an interval
 #To find the interval between two notes, pass their difference into this function [eg: interval_name(note_1 - note_2)]

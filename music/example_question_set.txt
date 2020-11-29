@@ -2,5 +2,5 @@
 #Put a pound sign before a line to have the program skip it
 
 
-intervals_1_easy 5
-
+intervals_1_easy 0
+major_chords_white 10
