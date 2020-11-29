@@ -21,16 +21,20 @@ def note_to_frequency(n):
 	
 #Pass in a note to get a string representation of that note
 #Set flat to true to get accidentals written as flats instead of sharps
-def notename(n,flat=False):
+def notename(n,flat=False,no_octave=False):
 	note_bases_sharp = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 	note_bases_flat = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B']
 	
 	note_base = n % 12
-	note_octave = math.floor(n/12) + 4
+	
+	if no_octave:
+		note_octave = ""
+	else:
+		note_octave = str(math.floor(n/12) + 4)
 	
 	if flat:
-		return note_bases_flat[note_base] + str(note_octave)
-	return note_bases_sharp[note_base] + str(note_octave)
+		return note_bases_flat[note_base] + note_octave
+	return note_bases_sharp[note_base] + note_octave
 	
 #Prints the string form of a note
 def print_note(n,flat=False):

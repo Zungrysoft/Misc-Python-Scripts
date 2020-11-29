@@ -1,5 +1,6 @@
 #Hello!
-#Put two slashes before a line to have the program skip it
+#Put a pound sign before a line to have the program skip it
 
 
-q_intervals_1 5
+intervals_1_easy 5
+
