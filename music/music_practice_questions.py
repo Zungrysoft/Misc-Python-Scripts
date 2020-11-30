@@ -122,5 +122,12 @@ def key_signature_major():
 def key_signature_minor():
 	return base_key_signature("MINOR",-3)
 
-
-
+def note_distance():
+	#Determine the two notes
+	note = int(random.random() * 12)
+	distance = int(random.random() * 11) + 1
+	
+	#Format the question
+	question = "How many semitones apart are " + notename(note,True) + " and " + notename(note+distance,True) + "?"
+	answers = [str(distance),str(abs(distance-12))]
+	return ask_question(question,answers)
