@@ -80,12 +80,18 @@ def main():
 			print("Error: Invalid question type " + choice)
 	
 	#Calculate time spent on problems
-	timediff = round((datetime.now() - start_time).total_seconds(),3)
+	timediff = (datetime.now() - start_time).total_seconds()
+	timediff_seconds = round(timediff%60,3)
+	timediff_minutes = int(timediff/60)
 	
 	#Print the final results
 	print()
 	print("Your score is " + str(score) + "/" + str(question_count))
-	print("Your time is " + str(timediff) + " seconds")
+	
+	if timediff_minutes == 0:
+		print("Your time is " + str(timediff_seconds) + " seconds")
+	else:
+		print("Your time is " + str(timediff_minutes) + " minutes and " + str(timediff_seconds) + " seconds")
 
 main()
 
