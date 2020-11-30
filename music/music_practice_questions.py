@@ -113,8 +113,6 @@ def base_key_signature(scale_name,offset):
 	#Special case for Gb and F#
 	if choice == 6:
 		answers.append("F#")
-		if random.random() > 0.5:
-			question = "######"
 	return ask_question(question,answers)
 	
 def key_signature_major():
