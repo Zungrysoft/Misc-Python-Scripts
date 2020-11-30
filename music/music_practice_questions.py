@@ -59,13 +59,13 @@ def intervals_1_grandmaster():
 #Asks the player to tell the notes in a major chord based on root note
 #chord is a list of distances from the root note
 #notes is the possible root notes to ask about
-def base_chords(chordname,chord,notes):
+def base_chords(chord_name,chord,notes):
 	#Decide the note to ask about
 	noteindex = int(random.random() * len(notes))
 	note = notes[noteindex]
 	
 	#Format the question
-	question = "Please type out a(n) " + notename(note,True) + " " + chordname + " chord. (Put one space between each note)"
+	question = "Please type out a(n) " + notename(note,True) + " " + chord_name + " chord. (Put one space between each note)"
 	
 	#Build the answers based on the inputted chord
 	answer_sharp = ""
@@ -99,9 +99,28 @@ def diminished_chords_white():
 def diminished_chords_all():
 	return base_chords("diminished",[0,3,6],[0,1,2,3,4,5,6,7,8,9,10,11])
 
+#Player is given a key signature and must determine what key it is in
+#scale_name is the name of the scale the player must identify the key signature for
+#offset is the amount of semitones the root is offset from C
+def base_key_signature(scale_name,offset):
+	signatures = ["n","#","##","###","####","#####","bbbbbb","bbbbb","bbbb","bbb","bb","b"];
+	choice = int(random.random() * 12)
+	
+	#Format the question
+	question = "What is the " + scale_name + " key for the time signature " + signatures[choice] + "?"
+	answers = [notename(offset + (choice*7),True,True)]
+	#Special case for Gb and F#
+	if choice == 6:
+		answers.append("F#")
+		if random.random() > 0.5:
+			question = "######"
+	return ask_question(question,answers)
+	
+def key_signature_major():
+	return base_key_signature("MAJOR",0)
 
-
-
+def key_signature_minor():
+	return base_key_signature("MINOR",-3)
 
 
 

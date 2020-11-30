@@ -3,7 +3,7 @@
 #To make a question unpickable, set its weight to zero
 
 #Here are all of the current valid question types:
-intervals_1_easy 10
+intervals_1_easy 20
 intervals_1_medium 0
 intervals_1_hard 0
 intervals_1_master 0
@@ -14,4 +14,5 @@ minor_chords_white 10
 minor_chords_all 0
 diminished_chords_white 3
 diminished_chords_all 0
-
+key_signature_major 20
+key_signature_minor 0

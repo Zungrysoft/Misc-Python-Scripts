@@ -35,7 +35,7 @@ def main():
 		print("Format: " + sys.argv[0] + " [question count] [question set file*]")
 		print("*: Optional parameter")
 		return
-		
+	
 	#Determine filename value
 	filename = "example_question_set.txt"
 	if len(sys.argv) > 2:
