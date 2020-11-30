@@ -1,4 +1,5 @@
 #A library used to make conversions between different formats and do math between notes
+#Written by ZungryWare
 
 #notes are numbers measured in distance from C4 (A4 == 440Hz)
 #frequencies are numbers measured in Hz

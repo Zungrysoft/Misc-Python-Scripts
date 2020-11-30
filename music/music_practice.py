@@ -1,6 +1,7 @@
 #A program written for myself to practice various music subjects
 #I integrated it into my schedule so I would practice at it once a day
 #I continue to add new question sets as time goes on
+#Written by ZungryWare
 
 #Uses the functions from music_notation_library.py
 from music_notation_library import *

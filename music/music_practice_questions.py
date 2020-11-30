@@ -2,6 +2,7 @@
 #There are question bases which have arguments and questions that call those bases with various arguments
 #The user selects questions, not bases
 #If I add a UI to this, I will probably allow the user to select the arguments themselves
+#Written by ZungryWare
 
 #Uses the functions from music_notation_library.py
 from music_notation_library import *
