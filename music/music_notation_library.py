@@ -54,8 +54,25 @@ def interval_name(i):
 	if i >= len(intervals):
 		return NULL
 	return intervals[i]
+
+#Pass in a guitar string and its fret number and get back a note
+def fret_to_note(string,fret):
+	strings = [4,-1,-5,-10,-15,-20]
 	
-
-
+	#Make sure the chosen string is an actual string
+	if string > len(strings):
+		return None
+	if string <= 0:
+		return None
+	
+	#Handle the input fret
+	if fret == 'o' or fret == 'O':
+		fret = 0
+	try:
+		fret = int(fret)
+	except Exception as e:
+		return None
+	
+	return strings[string-1] + fret
 
 
