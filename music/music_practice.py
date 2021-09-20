@@ -77,6 +77,8 @@ def main():
 			correct_answer = getattr(music_practice_questions, choice)()
 			if correct_answer:
 				score += 1
+		except KeyboardInterrupt:
+			sys.exit(0)
 		except:
 			print("Error: Invalid question type " + choice)
 	

@@ -16,4 +16,5 @@ diminished_chords_white 3
 diminished_chords_all 0
 key_signature_major 20
 key_signature_minor 0
+key_signature_modes 0
 note_distance 5
