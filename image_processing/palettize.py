@@ -140,8 +140,6 @@ def main():
 				safe_list.append(item)
 		path_list = safe_list
 	
-	print(path_list)
-				
 	
 	# Iterate through images
 	for im_path in path_list:
