@@ -3,22 +3,74 @@ import sys
 import random
 import glob
 
+# How many randomly-sampled palettes to try for each mode
 ITERATIONS = 300
-CORRECTION = 2.0
-WEIGHT_HUE = 0.500
-WEIGHT_SATURATION = 0.500
-WEIGHT_VALUE = 0.500
+# Determines how to prioritize various aspects of the image during palettization
+# correction: High values protect outlier pixels. Low values prioritize more common pixel colors
+# weight_hue: How much to preserve hue instead of saturation or value
+# weight_sat: See weight_hue
+# weight_val: See weight_hue
+MODES = [
+	{
+		"correction": 8.0,
+		"weight_hue": 1.0,
+		"weight_sat": 1.0,
+		"weight_val": 1.0,
+	},
+	{
+		"correction": 0.1,
+		"weight_hue": 1.0,
+		"weight_sat": 1.0,
+		"weight_val": 1.0,
+	},
+	{
+		"correction": 2.0,
+		"weight_hue": 4.0,
+		"weight_sat": 1.0,
+		"weight_val": 1.0,
+	},
+	{
+		"correction": 2.0,
+		"weight_hue": 1.0,
+		"weight_sat": 4.0,
+		"weight_val": 1.0,
+	},
+	{
+		"correction": 2.0,
+		"weight_hue": 1.0,
+		"weight_sat": 4.0,
+		"weight_val": 1.0,
+	},
+	{
+		"correction": 4.0,
+		"weight_hue": 4.0,
+		"weight_sat": 4.0,
+		"weight_val": 1.0,
+	},
+	{
+		"correction": 4.0,
+		"weight_hue": 4.0,
+		"weight_sat": 1.0,
+		"weight_val": 4.0,
+	},
+	{
+		"correction": 4.0,
+		"weight_hue": 1.0,
+		"weight_sat": 4.0,
+		"weight_val": 4.0,
+	},
+]
 
-def color_distance(c1, c2):
+def color_distance(c1, c2, mode=MODES[0]):
 	# Determines distance between two colors	
-	dist_hue =			((c1[0]-c2[0])**CORRECTION) * WEIGHT_HUE
-	dist_saturation =	((c1[1]-c2[1])**CORRECTION) * WEIGHT_SATURATION
-	dist_value =		((c1[2]-c2[2])**CORRECTION) * WEIGHT_VALUE
+	dist_hue =	(abs(c1[0]-c2[0])**mode["correction"]) * mode["weight_hue"]
+	dist_sat =	(abs(c1[1]-c2[1])**mode["correction"]) * mode["weight_sat"]
+	dist_val =	(abs(c1[2]-c2[2])**mode["correction"]) * mode["weight_val"]
 	
-	return dist_hue + dist_saturation + dist_value
+	return dist_hue + dist_sat + dist_val
 
 
-def image_distance(im1, im2):
+def image_distance(im1, im2, mode):
 	# Determines how different the two images are from each other
 	width, height = im1.size
 	
@@ -27,7 +79,7 @@ def image_distance(im1, im2):
 		for y in range(height):
 			c1 = im1.getpixel((x, y))
 			c2 = im2.getpixel((x, y))
-			total += color_distance(c1,c2)
+			total += color_distance(c1, c2, mode)
 	
 	return total/(width*height)
 
@@ -45,7 +97,7 @@ def pick_random_palette(im, count):
 	return list
 
 
-def get_palette(im, count):
+def get_palette(im, count, mode):
 	# Determines the best palette for the image by trying out many possible palettes
 	best_palette = [0,0,0]
 	best_distance = sys.maxsize
@@ -54,7 +106,7 @@ def get_palette(im, count):
 		# Generate random palette
 		palette = pick_random_palette(im, count)
 		im_compare = palettize(im, palette)
-		distance = image_distance(im, im_compare)
+		distance = image_distance(im, im_compare, mode)
 		
 		# See if it's the best
 		if distance < best_distance:
@@ -148,9 +200,12 @@ def main():
 		hsv_im = im.convert('HSV')
 		
 		# Iterate through attempts
-		for i in range(8):
+		i = 0
+		for mode in MODES:
+			i += 1
+			
 			# Find the image's palette
-			pal = get_palette(hsv_im, num_colors)
+			pal = get_palette(hsv_im, num_colors, mode)
 			
 			# Palettize the image
 			im_final = palettize(hsv_im, pal)
@@ -160,7 +215,7 @@ def main():
 			ins = len(path_split)-2
 			if ins < 0:
 				ins = 0
-			path_split[ins] += "_palettized_" + str(i+1)
+			path_split[ins] += "_palettized_" + str(i)
 			output_path = ""
 			for p in path_split:
 				output_path += p
