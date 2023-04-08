@@ -2,9 +2,10 @@ from PIL import Image
 import sys
 import random
 import glob
+import json
 
 # How many randomly-sampled palettes to try for each mode
-ITERATIONS = 300
+ITERATIONS = 10
 # Determines how to prioritize various aspects of the image during palettization
 # correction: High values protect outlier pixels. Low values prioritize more common pixel colors
 # weight_hue: How much to preserve hue instead of saturation or value
@@ -226,7 +227,16 @@ def main():
 			print(output_path)
 			im_final = im_final.convert('RGB')
 			im_final.save(output_path, "PNG")
+		
+			# Save palette json
+			json_path = output_path + ".json"
+			json_data = {
+				"colors": pal
+			}
+			with open(json_path, 'w') as f:
+				json.dump(json_data, f)
 
+			
 main()
 
 
