@@ -27,10 +27,10 @@ def pick_question(note, interval):
 	print(note)
 	
 	# Format the question
-	question = f"What is a {interval_name(interval)} above {notename(note,True,is_flat)}?"
+	question = f"What is a {interval_name(interval)} above {get_notename(note,True,is_flat)}?"
 	answers = [
-		notename(note + interval,True,False),
-		notename(note + interval,True,True),
+		get_notename(note + interval,True,False),
+		get_notename(note + interval,True,True),
 	]
 	return ask_question(question,answers)
 

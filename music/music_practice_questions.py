@@ -37,8 +37,8 @@ def base_intervals_1(min,max,notes):
 	note = notes[noteindex]
 	
 	# Format the question
-	question = "What is a " + interval_name(interval) + " above " + notename(note,True) + "?"
-	answers = [notename(note + interval,True,False),notename(note + interval,True,True)]
+	question = "What is a " + interval_name(interval) + " above " + get_notename(note,True) + "?"
+	answers = [get_notename(note + interval,True,False),get_notename(note + interval,True,True)]
 	return ask_question(question,answers)
 
 def intervals_1_easy():
@@ -66,14 +66,14 @@ def base_chords(chord_name,chord,notes):
 	note = notes[noteindex]
 	
 	# Format the question
-	question = "Please type out a(n) " + notename(note,True) + " " + chord_name + " chord. (Put one space between each note)"
+	question = "Please type out a(n) " + get_notename(note,True) + " " + chord_name + " chord. (Put one space between each note)"
 	
 	# Build the answers based on the inputted chord
 	answer_sharp = ""
 	answer_flat = ""
 	for dist in chord:
-		answer_sharp += notename(note+dist,True,False) + " "
-		answer_flat += notename(note+dist,True,True) + " "
+		answer_sharp += get_notename(note+dist,True,False) + " "
+		answer_flat += get_notename(note+dist,True,True) + " "
 	
 	# Remove the final space from each answer
 	answer_sharp = answer_sharp[:-1]
@@ -110,8 +110,8 @@ def base_key_signature(scale_name,offset):
 	# Format the question
 	question = "What is the " + scale_name + " key for the key signature " + signatures[choice] + "?"
 	answers = [
-		notename(offset + (choice*7),True,True),
-		notename(offset + (choice*7),True,False)
+		get_notename(offset + (choice*7),True,True),
+		get_notename(offset + (choice*7),True,False)
 	]
 	return ask_question(question,answers)
 	
@@ -145,6 +145,78 @@ def note_distance():
 	distance = int(random.random() * 11) + 1
 	
 	# Format the question
-	question = "How many semitones apart are " + notename(note,True) + " and " + notename(note+distance,True) + "?"
+	question = "How many semitones apart are " + get_notename(note,True) + " and " + get_notename(note+distance,True) + "?"
 	answers = [str(distance),str(abs(distance-12)),str(distance-12)]
 	return ask_question(question,answers)
+
+# Player is given a visual representation of the note on a music staff and must say
+# What note it is.
+def base_sight_reading(note, key_signature=0, clef="auto"):
+	question = "What note is this?\n\n" + generate_note_on_staff(note, key_signature, clef)
+	answers = [get_notename(note, True, False), get_notename(note, True, False)]
+	return ask_question(question, answers)
+
+def sight_reading_easy():
+	# Just white notes in the treble clef
+	note_options = [74, 76, 77, 79, 81, 83, 84, 86, 88, 89, 91]
+	note = random.choice(note_options)
+	return base_sight_reading(note, 0, "treble")
+
+def sight_reading_medium():
+	# White and black notes in the treble clef
+	note = random.randrange(74, 91 + 1)
+	return base_sight_reading(note, 0, "treble")
+
+def sight_reading_hard():
+	if random.random() < 0.5:
+		# Notes that go farther out
+		note = random.randrange(67, 98 + 1)
+		return base_sight_reading(note, 0, "treble")
+	
+	# Key signatures with up to 3 sharps or flats
+	note = random.randrange(74, 91 + 1)
+	key_signature = random.randrange(-3, 3 + 1)
+	return base_sight_reading(note, key_signature, "treble")
+
+def sight_reading_master():
+	r = random.random()
+
+	if r < 0.2:
+		# Notes that go even farther out on treble clef
+		note = random.randrange(64, 101 + 1)
+		return base_sight_reading(note, 0, "treble")
+
+	if r < 0.6:
+		# Key signatures with up to 5 sharps or flats
+		note = random.randrange(67, 98 + 1)
+		key_signature = random.randrange(-5, 5 + 1)
+		return base_sight_reading(note, 0, "treble")
+	
+	# Bass clef
+	note = random.randrange(53, 71 + 1)
+	return base_sight_reading(note, key_signature, "bass")
+
+def sight_reading_grandmaster():
+	r = random.random()
+
+	if r < 0.33:
+		# Notes that go even farther out on treble clef with up to 5 sharps/flats in key signature
+		note = random.randrange(64, 101 + 1)
+		key_signature = random.randrange(-5, 5 + 1)
+		return base_sight_reading(note, 0, "treble")
+
+	if r < 0.66:
+		# Notes that go all across both clefs with full range
+		note = random.randrange(43, 101 + 1)
+		return base_sight_reading(note, 0, "auto")
+	
+	# Both clefs with key signatures with up to 3 sharps or flats
+	note = random.randrange(53, 91 + 1)
+	key_signature = random.randrange(-3, 3 + 1)
+	return base_sight_reading(note, key_signature, "auto")
+
+def sight_reading_ultragrandmaster():
+	# Everything
+	note = random.randrange(43, 101 + 1)
+	key_signature = random.randrange(-5, 5 + 1)
+	return base_sight_reading(note, key_signature, "auto")

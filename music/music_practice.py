@@ -10,6 +10,7 @@ import music_practice_questions
 from datetime import datetime
 import random
 import sys
+import time
 
 #Goes through all of the questions and picks one proportional to its weight
 def pick_question(question_set):
@@ -77,9 +78,10 @@ def main():
 			correct_answer = getattr(music_practice_questions, choice)()
 			if correct_answer:
 				score += 1
+			time.sleep(0.4)
 		except KeyboardInterrupt:
 			sys.exit(0)
-		except:
+		except AttributeError:
 			print("Error: Invalid question type " + choice)
 	
 	#Calculate time spent on problems

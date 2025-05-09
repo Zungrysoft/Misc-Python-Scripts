@@ -11,7 +11,7 @@ def main():
 	for fret in frets:
 		note = fret_to_note(string, fret)
 		if type(note) == int:
-			print(notename(note))
+			print(get_notename(note))
 		string -= 1
 		
 
