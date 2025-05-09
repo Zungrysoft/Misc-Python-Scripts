@@ -153,7 +153,7 @@ def note_distance():
 # What note it is.
 def base_sight_reading(note, key_signature=0, clef="auto"):
 	question = "What note is this?\n\n" + generate_note_on_staff(note, key_signature, clef)
-	answers = [get_notename(note, True, False), get_notename(note, True, False)]
+	answers = [get_notename(note, True, False), get_notename(note, True, True)]
 	return ask_question(question, answers)
 
 def sight_reading_easy():
