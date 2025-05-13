@@ -14,9 +14,10 @@ def ask_question(question,answers):
 	#Take in user input
 	print(question)
 	user_answer = input()
+
 	
 	#Check the answer
-	if user_answer in answers:
+	if user_answer.lower() in (a.lower() for a in answers):
 		print("Correct!")
 		print()
 		return True

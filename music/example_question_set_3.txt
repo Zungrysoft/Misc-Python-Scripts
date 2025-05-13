@@ -3,24 +3,24 @@
 #To make a question unpickable, set its weight to zero
 
 #Here are all of the current valid question types:
-intervals_1_easy 0
-intervals_1_medium 0
-intervals_1_hard 0
-intervals_1_master 0
+intervals_1_easy 9
+intervals_1_medium 9
+intervals_1_hard 9
+intervals_1_master 9
 intervals_1_grandmaster 0
-major_chords_white 0
-major_chords_all 0
-minor_chords_white 0
-minor_chords_all 0
+major_chords_white 9
+major_chords_all 9
+minor_chords_white 9
+minor_chords_all 9
 diminished_chords_white 0
 diminished_chords_all 0
-key_signature_major 0
-key_signature_minor 0
-key_signature_modes 0
-note_distance 0
+key_signature_major 10
+key_signature_minor 5
+key_signature_modes 1
+note_distance 80
 sight_reading_easy 0
-sight_reading_medium 0
-sight_reading_hard 1
+sight_reading_medium 10
+sight_reading_hard 100
 sight_reading_master 0
 sight_reading_grandmaster 0
 sight_reading_ultragrandmaster 0
